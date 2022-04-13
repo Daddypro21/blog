@@ -1,0 +1,19 @@
+{
+    "name": "daddypro21/blog",
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/",
+            "Core\\": "core/",
+            "DB\\": "Database/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Daddypro21",
+            "email": "sndemapro@gmail.com"
+        }
+    ],
+    "require": {
+        "twig/twig": "^3.0"
+    }
+}
