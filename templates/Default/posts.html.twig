@@ -2,7 +2,7 @@
 
 {% block  body %}
 
-<p>Bonjour je suis la page d'accueil :{{title}}</p>
+<p>Bonjour je suis la page qui affiche les posts :{{title}}</p>
 <div>
 {% for post in posts %}
  <h1>{{post.title}}</h1><br>
@@ -12,4 +12,5 @@
 
 {% endfor %}
 </div>
+
 {% endblock %}
