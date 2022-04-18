@@ -2,6 +2,7 @@
 
 use Core\Route;
 
-Route::get('/','App\Controllers\HomeController@index');
-Route::get('/show/{id}','App\Controllers\HomeController@show');
-Route::post('/create','App\Controllers\HomeController@create');
+Route::get('/','App\Controllers\BlogController@index');
+Route::get('/posts','App\Controllers\BlogController@showAll');
+Route::get('/posts/{id}','App\Controllers\BlogController@show');
+Route::post('/create','App\Controllers\BlogController@create');
