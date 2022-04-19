@@ -29,14 +29,14 @@ class BlogController extends Controller
         $linkPost = ' ../posts ';
         $linkHome = ' /blog/ ';
 
-        $post = new Post();
+        $post = new Post('posts');
         $posts = $post->findById($id);
 
         return $this->view('Default/post',["title"=>"post","posts"=>$posts,"linkPost"=>$linkPost,"linkHome"=>$linkHome]);
     }
     public function create(HttpRequest $request)
     {
-        $request->all();
+        //$request->all();
     }
 
     public function showAll()
@@ -44,7 +44,7 @@ class BlogController extends Controller
         $linkPost = ' posts ';
         $linkHome = ' /blog/ ';
 
-        $post = new Post();
+        $post = new Post('posts');
         $posts = $post->all();
 
         return $this->view('Default/posts',["title" => "posts","posts"=>$posts,"linkPost"=>$linkPost,"linkHome"=>$linkHome]);
