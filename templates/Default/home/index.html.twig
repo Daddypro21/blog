@@ -3,13 +3,5 @@
 {% block  body %}
 
 <p>Bonjour je suis la page d'accueil :{{title}}</p>
-<div>
-{% for post in posts %}
- <h1>{{post.title}}</h1><br>
- <p>{{post.content}}</p><br>
- <div><a href ="#">{{post.created_at}}</a></div>
 
-
-{% endfor %}
-</div>
 {% endblock %}
