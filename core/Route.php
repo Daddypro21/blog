@@ -1,6 +1,8 @@
 <?php
 namespace Core;
 
+use App\Exceptions\NotFoundException;
+
 class Route
 {
     private static $request;
@@ -27,6 +29,6 @@ class Route
                 die;
             }
         }
-        header('HTTP/1.0 404 not found');
+       throw new NotFoundException("La page demandée n'existe pas !");
     }
 }
