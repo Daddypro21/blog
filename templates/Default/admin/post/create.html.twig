@@ -1,0 +1,25 @@
+{% extends 'tmpl.html.twig' %}
+
+
+{% block  body %}
+<div class="container">
+<h1>Tu es sur la page {{ title}}</h1>
+
+<form action="../../posts/create" method ="POST">
+    <div class="form-group">
+        <label for="title" >Titre de l'article</label>
+        <input type="text" class="form-control" id="title" name="title" value=
+        "Le titre de l'article">
+    </div>
+    <br>
+    <div class="form-group">
+        <label for="content" >Contenu de l'article</label>
+        <textarea name="content" id="content"  rows="8" class="form-control">
+        Le contenu de l'article
+        </textarea>
+    </div>
+    <br><br>
+    <button type="submit" class="btn btn-primary">Enregistrer mon article</button>
+</form>
+</div>
+{% endblock %}
