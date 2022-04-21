@@ -2,9 +2,10 @@
 namespace App\Controllers;
 
 
-use App\Models\Post;
+
 use Core\Controller;
 use DB\DBConnection;
+use Core\Models\Post;
 use App\HttpRequest\HttpRequest;
 
 class BlogController extends Controller 

@@ -42,4 +42,16 @@ class PostController extends Controller
         }
     }
 
+    public function create()
+    {
+        return $this->view('Default/admin/post/create',
+        ["title"=>"Créer un nouvel article"]);
+
+    }
+
+    public function createPost()
+    {
+        
+    }
+
 }

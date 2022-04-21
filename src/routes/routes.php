@@ -13,3 +13,8 @@ Route::get('/admin/posts','App\Controllers\admin\PostController@index');
 Route::post('/admin/posts/delete/{id}','App\Controllers\admin\PostController@destroy');
 Route::get('/admin/posts/edit/{id}','App\Controllers\admin\PostController@edit');
 Route::post('/admin/posts/update/{id}','App\Controllers\admin\PostController@update');
+Route::get('/admin/posts/create','App\Controllers\admin\PostController@create');
+Route::post('/admin/posts/create','App\Controllers\admin\PostController@createPost');
+
+Route::get('/login','App\Controllers\UserController@login');
+Route::post('/login','App\Controllers\UserController@loginPost');
