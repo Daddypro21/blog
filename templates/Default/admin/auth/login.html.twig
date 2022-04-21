@@ -1,0 +1,24 @@
+{% extends 'tmpl.html.twig' %}
+
+{% block body %}
+
+<div class="container">
+
+<h1> Vous êtes sur la page de {{ title }}</h1>
+<form action="../blog/login" method ="POST">
+    
+    <div class="form-group">
+        <label for="email" >Email</label>
+        <input type="email" class="form-control" id="email" name="email">
+    </div>
+    <br>
+    <div class="form-group">
+        <label for="passwords" >Mot de passe</label>
+        <input type="password" class="form-control" id="passwords" name="passwords">
+    </div>
+    <br>
+
+    <button type="submit" class="btn btn-primary">Se connecter</button>
+</form>
+</div>
+{% endblock %}
