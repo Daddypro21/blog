@@ -1,9 +1,9 @@
 <?php
 namespace Core\Models;
 
-use DB\DBConnection;
+use Core\Database\DBConnection;
 
-class Model 
+abstract class Model 
 {
 
     protected $db;

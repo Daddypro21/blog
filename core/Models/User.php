@@ -3,9 +3,10 @@ namespace Core\Models;
 
 class User extends Model 
 {
-    public function __construct($table)
+    protected $table = "admin";
+    public function __construct()
     {
-        parent::__construct($table);
+        parent::__construct($this->table);
     }
 
 }

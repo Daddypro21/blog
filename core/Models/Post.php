@@ -5,10 +5,10 @@ namespace Core\Models;
 
 class Post extends Model
 {
+    protected $table = "posts";
 
-
-    public function __contruct($table)
+    public function __construct()
     {
-        parent::__construct($table);
+        parent::__construct($this->table);
     }
 }
