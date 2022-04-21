@@ -4,8 +4,8 @@ namespace App\Controllers;
 
 
 use Core\Controller;
-use DB\DBConnection;
 use Core\Models\Post;
+use Core\Database\DBConnection;
 use App\HttpRequest\HttpRequest;
 
 class BlogController extends Controller 

@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-use App\Models\User;
+use Core\Models\User;
 use Core\Controller;
 
 class UserController extends Controller 
@@ -17,7 +17,7 @@ class UserController extends Controller
     public function loginPost()
     {
 
-        $user = (new User('admin'))->getByEmail($_POST['email']);
+        $user = (new User())->getByEmail($_POST['email']);
         var_dump($user);die;
 
     }
