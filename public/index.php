@@ -1,4 +1,5 @@
 <?php
+session_start();
 use Core\Route;
 use App\Exceptions\NotFoundException;
 
