@@ -1,12 +1,13 @@
 <?php
+
 namespace Core\Models;
 
-class User extends Model 
+class Member extends Model
 {
-    protected $table = "admin";
+    protected $table = "members";
+
     public function __construct()
     {
         parent::__construct($this->table);
     }
-
 }

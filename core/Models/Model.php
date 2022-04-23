@@ -57,4 +57,36 @@ abstract class Model
 
     }
 
+    public function findByCle($cle)
+    {
+        $req = $this->db->getPDO()->prepare("SELECT * FROM {$this->table} WHERE cle = ? "); 
+        $req->execute([$cle]);        
+        return $req->fetchAll(); 
+    }
+
+    public function addConfirmCode(array $data)
+    {
+        $req = $this->db->getPDO()->prepare(" UPDATE {$this->table} SET confirm_member = :confirm_member WHERE cle = :cle ");
+        $response = $req->execute($data);
+        return $response; 
+    }
+    public function createPost($idAdmin, array $data)
+    {
+        
+        $req = $this->db->getPDO()->prepare("INSERT INTO {$this->table} (title,content,id_admin,created_at)VALUES(?,?,?,NOW())");
+        $req->execute([$data['title'],$data['content'],$idAdmin]);
+        return $req;
+    }
+
+    public function register(array $data)
+    {
+        $req = $this->db->getPDO()->prepare("INSERT INTO {$this->table} (first_name,last_name,email,passwords,cle,date_register)VALUES(?,?,?,?,?,NOW())");
+        $req->execute([
+            
+                $data['first_name'],$data['last_name'],$data['email'],$data['password'], $data['cle']           
+            ]);
+        return $req;
+        
+    }
+
 }
