@@ -1,10 +1,12 @@
 <?php
 namespace Core;
 
-use DB\DBConnection;
 
 class Controller 
 {
+    
+
+
     
     public function view($path, $data=[])
     {
