@@ -16,5 +16,20 @@ Route::post('/admin/posts/update/{id}','App\Controllers\admin\PostController@upd
 Route::get('/admin/posts/create','App\Controllers\admin\PostController@create');
 Route::post('/admin/posts/create','App\Controllers\admin\PostController@createPost');
 
-Route::get('/login','App\Controllers\UserController@login');
-Route::post('/login','App\Controllers\UserController@loginPost');
+Route::get('/login','App\Controllers\AdminController@login');
+Route::post('/login','App\Controllers\AdminController@login');
+
+//Member
+
+Route::get('/connection','App\Controllers\MemberController@connection');
+Route::post('/connection','App\Controllers\MemberController@connection');
+Route::get('/register','App\Controllers\MemberController@register');
+Route::post('/register','App\Controllers\MemberController@register');
+
+//Verification
+
+Route::get('/verification','App\Controllers\VerificationController@verification');
+Route::post('/verification','App\Controllers\VerificationController@verification');  
+
+
+

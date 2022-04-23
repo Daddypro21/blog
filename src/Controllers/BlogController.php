@@ -16,11 +16,12 @@ class BlogController extends Controller
         $linkPost = ' posts ';
         $linkHome = ' /blog/ ';
 
+        $firstname = $_SESSION['first_name'] ?? "Validez votre compte";
         $db = new DBConnection();
         $req = $db->getPDO()->query("SELECT * FROM posts");          
         $posts = $req->fetchAll();
 
-        return $this->view('Default/home/index',["title" => "post","posts"=>$posts,
+        return $this->view('Default/home/index',["firstname"=>$firstname,"title" => "post","posts"=>$posts,
         "linkPost"=>$linkPost,"linkHome"=>$linkHome]);
         
     }
