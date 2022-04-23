@@ -1,0 +1,40 @@
+{% extends "base.html.twig" %}
+
+
+{% block body %}
+<div class="container">
+<h1>La page d'inscription </h1>
+
+<form action="../blog/register" method ="POST">
+    <div class="form-group">
+        <label for="title" >Nom</label>
+        <input type="text" class="form-control" id="title" name="last_name" placeholder=
+        "Nom">
+    </div>
+    <br>
+    <div class="form-group">
+        <label for="title" >Prenom</label>
+        <input type="text" class="form-control" id="title" name="first_name" placeholder=
+        "Prenom">
+    </div>
+    <br>
+    <div class="form-group">
+        <label for="title" >Email</label>
+        <input type="email" class="form-control" id="title" name="email" placeholder=
+        "Email">
+    </div>
+    <br>
+    <div class="form-group">
+        <label for="title" >Mot de passe</label>
+        <input type="password" name="password" class="form-control" id="title"  placeholder="password">
+    </div>
+    <br><br>
+    <button type="submit" class="btn btn-primary">S'Enregister</button>
+
+    <div class="form-group">
+        <p>{{ error}}</p>
+    </div>
+</form>
+</div>
+
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends "base.html.twig" %}
+
+
+{% block body %}
+<div class="container">
+<h1>La page de connection</h1>
+
+<form action="../blog/connection" method ="POST">
+    <div class="form-group">
+        
+    <div class="form-group">
+        <label for="title" >Email</label>
+        <input type="email" class="form-control" id="title" name="email" value=
+        "Email">
+    </div>
+    <br>
+    <div class="form-group">
+        <label for="title" >Mot de passe</label>
+        <input type="password" class="form-control" id="title" name="password">
+    </div>
+    <br><br>
+    <button type="submit" class="btn btn-primary">Se connecter</button>
+
+    <div class="form-group">
+        <p>{{ error}}</p>
+    </div>
+</form>
+</div>
+
+{% endblock %}

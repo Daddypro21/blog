@@ -1,0 +1,25 @@
+{% extends "base.html.twig" %}
+
+
+{% block body %}
+
+   <div class="container">
+<h1>La page de verification</h1>
+
+<form action="../blog/verification" method ="POST">
+    
+    <div class="form-group">
+        <label for="title" >Verification </label>
+        <input type="text" class="form-control" id="title" name="cle">
+    </div>
+    <br><br>
+    <button type="submit" class="btn btn-primary">Confirmer</button>
+
+    <div class="form-group">
+        <p>{{ error}}</p>
+    </div>
+</form>
+</div>
+
+
+{% endblock %}
