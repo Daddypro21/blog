@@ -1,8 +1,8 @@
-<?php
-namespace App\HttpRequest;
+ <?php
+//namespace App\HttpRequest;
 
-class HttpRequest
-{
+//class HttpRequest
+//{
     // public function all()
     // {
     //     return $_POST;
@@ -11,4 +11,4 @@ class HttpRequest
     // {
     //     return $_POST[$field];
     // }
-}
+//} 

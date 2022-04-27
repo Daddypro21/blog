@@ -5,7 +5,10 @@ use Core\Route;
 Route::get('/','App\Controllers\BlogController@index');
 Route::get('/posts','App\Controllers\BlogController@showAll');
 Route::get('/posts/{id}','App\Controllers\BlogController@show');
+Route::post('/posts/{id}','App\Controllers\BlogController@show');
 Route::post('/create','App\Controllers\BlogController@create');
+Route::get('/contact','App\Controllers\BlogController@contact');
+Route::post('/contact','App\Controllers\BlogController@contact');
 
 // Administration
 
@@ -30,6 +33,8 @@ Route::post('/register','App\Controllers\MemberController@register');
 
 Route::get('/verification','App\Controllers\VerificationController@verification');
 Route::post('/verification','App\Controllers\VerificationController@verification');  
+
+Route::get('/logout','App\Controllers\MemberController@logout');  
 
 
 

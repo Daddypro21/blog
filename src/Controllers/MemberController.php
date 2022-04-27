@@ -28,21 +28,20 @@ class MemberController extends Controller
                    
                     header('Location:../blog');die;
                   
-                }else{
-                session_destroy(); 
+                }else{ 
                 $this->error = "Mot de passe invalide";
-                return $this->view('Default/connection',["error"=>$this->error,"title" => "Connection"]);
+                return $this->view('Default/connection',["error"=>$this->error,"title" => "Se connecter"]);
                 }
             }else{
                 $this->error = "Cet utilisateur n'existe pas !!";
-                return $this->view('Default/connection',["error"=>$this->error,"title" => "Connection"]);
+                return $this->view('Default/connection',["error"=>$this->error,"title" => "Se connecter"]);
             }
             
 
         }
         
 
-        return $this->view('Default/connection',["error"=>$this->error,"title" => "Connection"]);
+        return $this->view('Default/connection',["error"=>$this->error,"title" => "Se connecter"]);
 
     }
 
@@ -97,15 +96,21 @@ class MemberController extends Controller
             }else{
                 $error = "Cet email existe déjà !!";
                 $this->error = "Cet email existe déjà";
-                return $this->view('Default/register',["error"=>$this->error,"title" => "Connection"]);
+                return $this->view('Default/register',["error"=>$this->error,"title" => "S'inscrire"]);
             }
 
         }
         
 
-        return $this->view('Default/register',["error"=>$this->error,"title" => "Connection"]);
+        return $this->view('Default/register',["error"=>$this->error,"title" => " S'inscrire"]);
 
 
+    }
+
+    public function logout()
+    {
+        session_destroy();
+        header('Location:/blog');
     }
 
 
