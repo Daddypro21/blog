@@ -2,19 +2,18 @@
 
 {% block  body %}
 
-<p>Bonjour je suis la page qui affiche les posts :{{title}}</p>
 
 {% for post in posts %}
 <div class="container">
 
 <div class="card  mb-3 " >
-  <small class="text-info"> publié le {{post.created_at}}</small>
-  <img class="card-img-top" src="..." alt="Card image cap">
+  <small class="text-info"> publié le {{post.created_at_post}} par {{post.firstname_admin}} {{post.lastname_admin}}</small>
+  <!--<img class="card-img-top" src="..." alt="Card image cap">-->
   <div class="card-body">
-    <h5 class="card-title">{{post.title}}</h5>
-    <p class="card-text posthidden">{{post.content}} </p>
+    <h5 class="card-title">{{post.title_post}}</h5>
+    <p class="card-text posthidden">{{post.content_post}} </p>
     
-    <a href="posts/{{post.id}}" class="btn btn-primary">Lire plus</a>
+    <a href="posts/{{post.id_post}}" class="btn btn-primary">Lire plus</a>
   </div>
 
 </div>

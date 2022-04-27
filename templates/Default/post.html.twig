@@ -2,25 +2,69 @@
 
 {% block  body %}
 
-<p>Bonjour je suis la page d'accueil :{{title}}</p>
+
 
 {% for post in posts %}
 <div class="container">
 <div class="row">
 <div class="">
-<div class="card  mb-3" >
-  <small>{{post.created_at}}</small>
-  <img class="card-img-top" src="..." alt="Card image cap">
+<div class="card  mb-3 " >
+  <small>Publié le {{post.created_at_post}} par {{post.firstname_admin}} {{post.lastname_admin}}</small>
+  
   <div class="card-body">
-    <h5 class="card-title">{{post.title}}</h5>
-    <p class="card-text">{{post.content}}</p>
+    <h5 class="card-title">{{post.title_post}}</h5>
+    <p class="card-text">{{post.content_post}}</p>
     
-  <a href={{linkPost}} class="btn btn-secondary">Retour</a>
+  <a href={{linkPost}} class="btn btn-dark">Retour</a>
   </div>
 </div>
 </div>
 </div>
 </div>
- {% endfor %}
+{% endfor %}
+<div class="container">
+  {% for comment in comments %}
+  
+  <div class="row">
+<div class="">
+<div class="card  mb-3 bg-secondary " >
+  <small>Ce commentaire a été posté le{{comment.date_comment_comments}} par {{comment.firstname_members}} {{comment.lastname_members}}</small>
+  <div class="card-body">
+    <p class="card-text">{{comment.comment_comments}}</p>
+  </div>
+</div>
+</div>
+</div>
+
+  {% endfor %}
+</div>
+
+{% if idMember != null %}
+<div class="container">
+  <form action="../../blog/posts/{{id}}" method ="POST">
+    <div class="form-group">
+        <label for="comment" >Commentaire</label>
+        <textarea name="comment" id="comment"  rows="8" class="form-control">
+      
+        </textarea>
+        <input type="hidden" class="form-control" id="title"  >
+    </div>
+    <br><br>
+    <button type="submit" class="btn btn-primary">Poster un commentaire</button>
+
+    <div class="form-group">
+     <p>{{error}}</p>
+    </div>
+  </form>
+
+  <br><br>
+</div>
+{% endif %}
+
+{% if idMember == null %}
+<div class="container bg-info">
+ <p class="text-center" >Vous devrez être un membre confirmé pour commenter</p>
+</div>
+{% endif %}
 
 {% endblock %}
