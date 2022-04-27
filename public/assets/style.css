@@ -1,10 +1,35 @@
 
-
 .posthidden{
     text-overflow: ellipsis;
     overflow: hidden; 
     width: 1000px; 
     height: 1.2em; 
     white-space: nowrap;
-     background : red;
+     
+    }
+    .me-contacter{
+        width:40%;
+    }
+    
+    .skills{
+        margin-top:100px;
+    }
+    .image-p{
+        width:100%;
+        padding:20px 20px;
+        
+    }
+    .portofolio-img{
+        width:60%;
+        border-radius:50%;
+        
+    }
+    .cards{
+        padding:5px 5px;
+    }
+    .card-group img{
+        width:50%;
+    }
+    footer{
+        margin-top:5px;
     }
