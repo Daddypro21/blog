@@ -12,7 +12,7 @@ class Request
 
     public function __construct(string $path,string $action)
     {
-        $this->request = new HttpRequest();
+        //$this->request = new HttpRequest();
         $this->path = trim($path,'/');
         $this->action = $action;
     }
@@ -66,7 +66,7 @@ class Request
             $controller = new $controller();
             $method = $action[1];  
             
-            return isset($this->params) ? $controller->$method($this->request,implode($this->params)) : $controller->$method($this->request);
+            return isset($this->params) ? $controller->$method(implode($this->params)) : $controller->$method();
         }else{
             call_user_func_array($this->action,$this->params);
         }

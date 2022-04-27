@@ -22,11 +22,28 @@ abstract class Model
         return $req->fetchAll();
     }
 
-    public function findById(int $id)
+    public function postAdminRelation()
+    {
+        $req = $this->db->getPDO()->query("SELECT p.id id_post,p.title title_post,p.content content_post,
+        p.created_at created_at_post,p.update_at update_at_post,a.first_name firstname_admin,a.last_name lastname_admin FROM {$this->table}
+        p INNER JOIN admin a ON p.id_admin = a.id ORDER BY p.created_at DESC");
+        return $req->fetchAll();
+    }
+
+    public function findByIdRelationPostAdmin(int $id)
     {
         
-        $req = $this->db->getPDO()->prepare("SELECT * FROM {$this->table} WHERE id=? "); 
+        $req = $this->db->getPDO()->prepare("SELECT p.id id_post,p.title title_post,p.content content_post,
+        p.created_at created_at_post,p.update_at update_at_post,a.first_name firstname_admin,a.last_name lastname_admin FROM {$this->table}
+        p INNER JOIN admin a ON p.id_admin = a.id WHERE p.id = ?"); 
         $req->execute([$id]);        
+        return $req->fetchAll();
+    }
+
+    public function findById(int $id)
+    {
+        $req = $this->db->getPDO()->prepare("SELECT * FROM {$this->table} WHERE id = ?");
+        $req->execute([$id]);
         return $req->fetchAll();
     }
 
@@ -61,7 +78,8 @@ abstract class Model
     {
         $req = $this->db->getPDO()->prepare("SELECT * FROM {$this->table} WHERE cle = ? "); 
         $req->execute([$cle]);        
-        return $req->fetchAll(); 
+        $data = $req->fetchAll(); 
+        return $data;
     }
 
     public function addConfirmCode(array $data)
@@ -76,6 +94,26 @@ abstract class Model
         $req = $this->db->getPDO()->prepare("INSERT INTO {$this->table} (title,content,id_admin,created_at)VALUES(?,?,?,NOW())");
         $req->execute([$data['title'],$data['content'],$idAdmin]);
         return $req;
+    }
+
+    public function comment(array $data)
+    {
+        
+        $req = $this->db->getPDO()->prepare("INSERT INTO {$this->table} (comment,id_members,id_post,date_comment)VALUES(?,?,?,NOW())");
+        $response = $req->execute([$data['comment'], $data['id_members'],$data['id_post']  
+        ]);
+        return $response;
+
+    }
+
+    public function getComment($id)
+    {
+        $req = $this->db->getPDO()->prepare("SELECT c.id id_comments,c.comment comment_comments,c.date_comment date_comment_comments,
+        m.first_name firstname_members, m.last_name lastname_members  FROM {$this->table}
+        c INNER JOIN members m ON c.id_members = m.id WHERE c.id_post = ?"); 
+        $req->execute([$id]);        
+        return $req->fetchAll();
+
     }
 
     public function register(array $data)
