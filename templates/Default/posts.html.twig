@@ -7,9 +7,10 @@
 <div class="container">
 
 <div class="card  mb-3 " >
-  <small class="text-info"> publié le {{post.created_at_post}} par {{post.firstname_admin}} {{post.lastname_admin}}</small>
+  <small class="text-dark"> Publié le {{post.created_at_post}} par {{post.firstname_admin}} {{post.lastname_admin}}</small>
   <!--<img class="card-img-top" src="..." alt="Card image cap">-->
   <div class="card-body">
+    <h3 class="card-title">{{post.chapo_post}}</h3>
     <h5 class="card-title">{{post.title_post}}</h5>
     <p class="card-text posthidden">{{post.content_post}} </p>
     

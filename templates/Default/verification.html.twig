@@ -4,13 +4,14 @@
 {% block body %}
 
    <div class="container">
-<h1>La page de verification</h1>
+<h1 class="text-center">Confirmez votre compte</h1>
 
 <form action="../blog/verification" method ="POST">
     
     <div class="form-group">
-        <label for="title" >Verification </label>
-        <input type="text" class="form-control" id="title" name="cle">
+        <label for="title" >Verification du code </label>
+        <input type="text" class="form-control" id="title" name="cle" placeholder="
+        mettez le code qui vous a été envoyé : #@ys#k">
     </div>
     <br><br>
     <button type="submit" class="btn btn-primary">Confirmer</button>

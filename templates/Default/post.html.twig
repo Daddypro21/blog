@@ -12,6 +12,7 @@
   <small>Publié le {{post.created_at_post}} par {{post.firstname_admin}} {{post.lastname_admin}}</small>
   
   <div class="card-body">
+    <h3 class="card-title">{{post.chapo_post}}</h3>
     <h5 class="card-title">{{post.title_post}}</h5>
     <p class="card-text">{{post.content_post}}</p>
     
@@ -40,6 +41,8 @@
 </div>
 
 {% if idMember != null %}
+
+{% if confirm != null %}
 <div class="container">
   <form action="../../blog/posts/{{id}}" method ="POST">
     <div class="form-group">
@@ -59,6 +62,14 @@
 
   <br><br>
 </div>
+{% endif %}
+
+{% if confirm == null %}
+<div class="container bg-info">
+ <p class="text-center" > <a href="../../blog/verification">Confirmez votre compte</a></p>
+</div>
+{% endif %}
+
 {% endif %}
 
 {% if idMember == null %}

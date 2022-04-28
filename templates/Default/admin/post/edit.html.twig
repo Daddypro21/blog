@@ -14,6 +14,12 @@ Modifier
 
 <form action="../../posts/update/{{id}}" method ="POST">
     <div class="form-group">
+        <label for="title" >Le châpo</label>
+        <input type="text" class="form-control" id="title" name="chapo" value=
+        "{% for post in posts %} {{post.chapo}} {% endfor %}">
+    </div>
+    <br>
+    <div class="form-group">
         <label for="title" >Titre de l'article</label>
         <input type="text" class="form-control" id="title" name="title" value=
         "{% for post in posts %} {{post.title}} {% endfor %}">
