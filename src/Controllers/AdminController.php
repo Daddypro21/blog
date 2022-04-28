@@ -14,9 +14,9 @@ class AdminController extends Controller
     {
         if($_SERVER['REQUEST_METHOD'] === "POST"){
 
-            $users = (new Admin())->getByEmail($_POST['email']);
-            foreach($users as $user);
-    
+            $users = (new Admin())->getByEmail($_POST['email']); 
+            foreach($users as $user){
+                    //var_dump($user['password']);die;
             if(password_verify($_POST['password'],$user['password'])){
 
                     $_SESSION['id'] = $user['id'];
@@ -26,16 +26,22 @@ class AdminController extends Controller
                     header('Location:../blog/admin/posts');die;
                   
             }else{
-                session_destroy(); 
+                
                 $this->error = "Mot de passe invalide";
                 return $this->view('Default/admin/auth/login',["error"=>$this->error,"title" => "Connection"]);
             }
+         }
 
         }
         
 
         return $this->view('Default/admin/auth/login',["error"=>$this->error,"title" => "Connection"]);
 
+    }
+
+    public function logout(){
+        session_destroy();
+        header('Location:../../blog/login');
     }
 
 

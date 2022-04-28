@@ -19,13 +19,13 @@ class BlogController extends Controller
         $linkPost = ' posts ';
         $linkHome = ' /blog/ ';
 
-        $firstname = $_SESSION['first_name'] ?? "Validez votre compte";
+        $firstname = $_SESSION['first_name'] ?? null ;
         $idMember = $_SESSION['id'] ?? null ;
         $db = new DBConnection();
         $req = $db->getPDO()->query("SELECT * FROM posts");          
         $posts = $req->fetchAll();
 
-        return $this->view('Default/home/index',["idMember"=>$idMember,"firstname"=>$firstname,"title" => "post","posts"=>$posts,
+        return $this->view('Default/home/index',["idMember"=>$idMember,"firstname"=>$firstname,"title" => "Accueil",
         "linkPost"=>$linkPost,"linkHome"=>$linkHome,"linkContact"=>$linkContact]);
         
     }
@@ -37,7 +37,8 @@ class BlogController extends Controller
         $linkHome = ' /blog/ ';
         $idMember = $_SESSION['id'] ?? null ;
 
-        $firstname = $_SESSION['first_name'] ?? "Validez votre compte";
+        $confirm = $_SESSION['confirm_member'] ?? null ;
+        $firstname = $_SESSION['first_name'] ?? null ;
         $post = new Post();
         $posts = $post->findByIdRelationPostAdmin($id);
 
@@ -66,7 +67,7 @@ class BlogController extends Controller
             "comments"=>$this->comments,"id"=>$id,
             "firstname"=>$firstname ,
             "title"=>"post","idMember"=>$idMember,
-            "posts"=>$posts,"linkPost"=>$linkPost,"linkHome"=>$linkHome,"linkContact"=>$linkContact]);
+            "posts"=>$posts,"linkPost"=>$linkPost,"linkHome"=>$linkHome,"linkContact"=>$linkContact,"confirm"=>$confirm]);
         
     }
 
@@ -77,7 +78,7 @@ class BlogController extends Controller
         $linkHome = ' /blog/ ';
 
         $idMember = $_SESSION['id'] ?? null ;
-        $firstname = $_SESSION['first_name'] ?? "Validez votre compte";
+        $firstname = $_SESSION['first_name'] ?? null ;
         $post = new Post();
         $posts = $post->postAdminRelation();
 
@@ -95,7 +96,7 @@ class BlogController extends Controller
         $linkHome = ' /blog/ ';
 
         $idMember = $_SESSION['id'] ?? null ;
-        $firstname = $_SESSION['first_name'] ?? "Validez votre compte";
+        $firstname = $_SESSION['first_name'] ?? null ;
 
         if($_SERVER['REQUEST_METHOD'] === "POST"){
 

@@ -14,6 +14,11 @@ class MemberController extends Controller
 
     public function connection()
     {
+
+        $linkContact = 'contact';
+        $linkPost = ' posts ';
+        $linkHome = ' /blog/ ';
+
         if($_SERVER['REQUEST_METHOD'] === "POST"){
 
             $email = \htmlspecialchars($_POST['email']);
@@ -30,23 +35,30 @@ class MemberController extends Controller
                   
                 }else{ 
                 $this->error = "Mot de passe invalide";
-                return $this->view('Default/connection',["error"=>$this->error,"title" => "Se connecter"]);
+                return $this->view('Default/connection',["error"=>$this->error,"title" => "Se connecter",
+                "linkHome"=>$linkHome,"linkPost"=>$linkPost,"linkContact"=>$linkContact]);
                 }
             }else{
                 $this->error = "Cet utilisateur n'existe pas !!";
-                return $this->view('Default/connection',["error"=>$this->error,"title" => "Se connecter"]);
+                return $this->view('Default/connection',["error"=>$this->error,"title" => "Se connecter",
+                "linkHome"=>$linkHome,"linkPost"=>$linkPost,"linkContact"=>$linkContact]);
             }
             
 
         }
         
 
-        return $this->view('Default/connection',["error"=>$this->error,"title" => "Se connecter"]);
+        return $this->view('Default/connection',["error"=>$this->error,"title" => "Se connecter",
+        "linkHome"=>$linkHome,"linkPost"=>$linkPost,"linkContact"=>$linkContact]);
 
     }
 
     public function register()
     {
+        $linkContact = 'contact';
+        $linkPost = ' posts ';
+        $linkHome = ' /blog/ ';
+
         if($_SERVER['REQUEST_METHOD'] === "POST"){
 
             $email = \htmlspecialchars($_POST['email']);
@@ -58,7 +70,7 @@ class MemberController extends Controller
             $cle = $password;
             $member = (new Member())->getByEmail($email);
     
-            if(empty($member)){
+            if(empty($member) && filter_var($email, FILTER_VALIDATE_EMAIL)){
                 $mailMessage = new MailMessage();
 
                 $url = "http://localhost/blog/verification";
@@ -96,13 +108,15 @@ class MemberController extends Controller
             }else{
                 $error = "Cet email existe déjà !!";
                 $this->error = "Cet email existe déjà";
-                return $this->view('Default/register',["error"=>$this->error,"title" => "S'inscrire"]);
+                return $this->view('Default/register',["error"=>$this->error,"title" => "S'inscrire",
+            "linkHome"=>$linkHome,"linkPost"=>$linkPost,"linkContact"=>$linkContact]);
             }
 
         }
         
 
-        return $this->view('Default/register',["error"=>$this->error,"title" => " S'inscrire"]);
+        return $this->view('Default/register',["error"=>$this->error,"title" => " S'inscrire",
+        "linkHome"=>$linkHome,"linkPost"=>$linkPost,"linkContact"=>$linkContact]);
 
 
     }

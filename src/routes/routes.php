@@ -21,6 +21,7 @@ Route::post('/admin/posts/create','App\Controllers\admin\PostController@createPo
 
 Route::get('/login','App\Controllers\AdminController@login');
 Route::post('/login','App\Controllers\AdminController@login');
+Route::get('/admin/logout','App\Controllers\AdminController@logout'); 
 
 //Member
 
