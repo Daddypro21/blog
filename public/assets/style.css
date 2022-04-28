@@ -2,7 +2,7 @@
 .posthidden{
     text-overflow: ellipsis;
     overflow: hidden; 
-    width: 1000px; 
+   /* width: 1000px; */
     height: 1.2em; 
     white-space: nowrap;
      
