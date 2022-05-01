@@ -16,18 +16,17 @@ class AdminController extends Controller
     public $error = null;
     public function login()
     {
-        if(isset($_SERVER['REQUEST_METHOD']) === "POST"){
+        if($_SERVER['REQUEST_METHOD'] === "POST"){
 
-            $users = (new Admin())->getByEmail(isset($_POST['email'])); 
+            $users = (new Admin())->getByEmail($_POST['email']); 
             foreach($users as $user){
-                    //var_dump($user['password']);die;
-            if(password_verify(isset($_POST['password']),$user['password'])){
+            if(password_verify($_POST['password'],$user['password'])){
 
                     $_SESSION['id'] = $user['id'];
                     $_SESSION['email'] = $user['email'];
                     $_SESSION['first_name'] = $user['first_name'];
                     $_SESSION['confirm_admin'] = $user['confirm_admin'];
-                    header('Location:../blog/admin/posts');die;
+                    header('Location:../blog/admin/posts');exit();
                   
             }else{
                 
