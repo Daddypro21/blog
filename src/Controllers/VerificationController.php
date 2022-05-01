@@ -33,13 +33,13 @@ class VerificationController extends Controller
                     $_SESSION['last_name'] = $data['last_name'];
                     $_SESSION['confirm_member'] = $data['confirm_member'];
                     $_SESSION['id'] = $data['id'];
-                    header("Location:../blog");
+                    header("Location:../blog");exit();
                }
-            }else{
+            }
                 $this->error = "Le code entré ne correspond pas !";
                 return $this->view('Default/verification',["error"=>"Le code entré ne correspond pas !","title"=>"Je suis la page de verification ",
                 "linkHome"=>$linkHome,"linkPost"=>$linkPost,"linkContact"=>$linkContact,"idMember"=>$idMember]); 
-            }
+            
         }
 
         return $this->view('Default/verification',["title"=>"Je suis la page de verification ",
