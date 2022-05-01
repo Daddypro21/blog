@@ -25,7 +25,7 @@ class Route
         if(isset($_SERVER['REQUEST_METHOD'])){
             foreach(self::$request[$_SERVER['REQUEST_METHOD']] as $route){
                     $getUrl = ($_GET['url']) ?? null;
-                if($route->matchs(trim($_GET['url']),'/')){
+                if($route->matchs(trim($getUrl),'/')){
                     $route->execute();
                     die;
                 }
