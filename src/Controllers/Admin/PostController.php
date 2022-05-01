@@ -6,6 +6,14 @@ namespace App\Controllers\Admin;
 use Core\Controller;
 use Core\Models\Post;
 
+/**
+ * Creation de la class PostController pour gerer l'administration
+ * methode index affiche la liste des articles créés
+ * methode destroy qui pourrait etre un delete à la place supprime un article
+ * methode edit crée un nouvel article
+ * methode update modifie un article
+ */
+
 class PostController extends Controller
 {
     
