@@ -8,7 +8,7 @@
 
 <div class="card  mb-3 " >
   <small class="text-dark"> Publié le {{post.created_at_post}}
-  <span class="text-secondary">{% if post.update_at_post != "0000-00-00 00:00:00" %}  modifié le {{post.update_at_post}} {% endif %}</span> 
+  <span class="text-secondary">{% if post.update_at_post != NULL %}  modifié le {{post.update_at_post}} {% endif %}</span> 
    par {{post.firstname_admin}} {{post.lastname_admin}}</small>
   <!--<img class="card-img-top" src="..." alt="Card image cap">-->
   <div class="card-body">
