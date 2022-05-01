@@ -61,7 +61,7 @@ class PostController extends Controller
 
     public function create()
     {
-        $_SESSION['confirm_admin'] ?? header('Location:../../../blog/login');
+        empty($_SESSION['confirm_admin']) ?? header('Location:../../../blog/login');
         return $this->view('Default/admin/post/create',
         ["title"=>"Créer un nouvel article","confirmAdmin" =>$_SESSION['confirm_admin']]);
 
