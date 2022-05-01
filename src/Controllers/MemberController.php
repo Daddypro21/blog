@@ -30,6 +30,7 @@ class MemberController extends Controller
 
                     $_SESSION['id'] = $member['id'];
                     $_SESSION['email'] = $member['email'];
+                    $_SESSION['confirm_member'] = $member['confirm_member'];
                    
                     header('Location:../blog');die;
                   

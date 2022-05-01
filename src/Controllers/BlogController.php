@@ -7,6 +7,7 @@ use Core\Models\Comment;
 use Core\Mail\ContactMail\MailMessage;
 use Core\Database\DBConnection;
 use Core\Mail\ContactMail\Mail;
+use DateTime;
 
 class BlogController extends Controller 
 {
@@ -47,13 +48,13 @@ class BlogController extends Controller
         if($_SERVER['REQUEST_METHOD'] === "POST"){
                 
             if(!empty($_POST['comment']) ){
-                var_dump($_POST['comment']);die;
                 $commentPost = htmlspecialchars($_POST['comment']);
                 $idMember = htmlspecialchars($_SESSION['id']);
                 $data =[
                     "comment"=>$commentPost,"id_members"=>$idMember,"id_post"=>$id
                 ];
                 $comments = $comment->comment($data);
+                header("location:../../blog/posts/{$id}");
             }else{
                 $this->error = "Ce champs ne peut pas être vide";
             }
