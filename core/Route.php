@@ -22,13 +22,16 @@ class Route
     }
     public static function run()
     {
-        foreach(self::$request[$_SERVER['REQUEST_METHOD']] as $route){
-            
-            if($route->matchs(trim($_GET['url']),'/')){
-                $route->execute();
-                die;
+        if(isset($_SERVER['REQUEST_METHOD'])){
+            foreach(self::$request[$_SERVER['REQUEST_METHOD']] as $route){
+                    $getUrl = ($_GET['url']) ?? null;
+                if($route->matchs(trim($_GET['url']),'/')){
+                    $route->execute();
+                    die;
+                }
             }
         }
+        
        throw new NotFoundException("La page demandée n'existe pas !");
     }
 }
