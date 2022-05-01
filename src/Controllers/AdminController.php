@@ -16,12 +16,12 @@ class AdminController extends Controller
     public $error = null;
     public function login()
     {
-        if($_SERVER['REQUEST_METHOD'] === "POST"){
+        if(isset($_SERVER['REQUEST_METHOD']) === "POST"){
 
-            $users = (new Admin())->getByEmail($_POST['email']); 
+            $users = (new Admin())->getByEmail(isset($_POST['email'])); 
             foreach($users as $user){
                     //var_dump($user['password']);die;
-            if(password_verify($_POST['password'],$user['password'])){
+            if(password_verify(isset($_POST['password']),$user['password'])){
 
                     $_SESSION['id'] = $user['id'];
                     $_SESSION['email'] = $user['email'];
