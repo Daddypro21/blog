@@ -40,11 +40,11 @@ class MemberController extends Controller
                    
                     header('Location:../blog');die;
                   
-                }else{ 
+                }
                 $this->error = "Mot de passe invalide";
                 return $this->view('Default/connection',["error"=>$this->error,"title" => "Se connecter",
                 "linkHome"=>$linkHome,"linkPost"=>$linkPost,"linkContact"=>$linkContact]);
-                }
+                
             }else{
                 $this->error = "Cet utilisateur n'existe pas !!";
                 return $this->view('Default/connection',["error"=>$this->error,"title" => "Se connecter",
