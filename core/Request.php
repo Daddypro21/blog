@@ -3,12 +3,16 @@ namespace Core;
 use App\Controllers;
 use App\HttpRequest\HttpRequest;
 
+/**
+ * La class Request gere la logique de notre routeur 
+ */
+
 class Request
 {
     private $path;
     private $action;
     private $params=[];
-    private $request;
+    
 
     public function __construct(string $path,string $action)
     {
