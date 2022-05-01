@@ -115,14 +115,14 @@ class BlogController extends Controller
                 $messageMail = $EmailMessage->message($email,$message,$name);
 
                 $mail = new Mail();
-                $to = "sndemapro@gmail.com";
+                $too = "sndemapro@gmail.com";
                 $subject = $subject;
                 $message = $messageMail;
                 $headers ="";
                 $headers .= "From: {$email}" . "\r\n" ;
                 $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
                 "CC:". $email;
-                $response = $mail->sendMail($to,$subject,$message,$headers);
+                $response = $mail->sendMail($too,$subject,$message,$headers);
                 if($response){
                     $response ="Votre message a été envoyé !";
                     return $this->view('Default/contact',["idMember"=>$idMember,"title" => "Contact",
