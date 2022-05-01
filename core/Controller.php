@@ -5,9 +5,6 @@ namespace Core;
 class Controller 
 {
     
-
-
-    
     public function view($path, $data=[])
     {
         $loader = new \Twig\Loader\FilesystemLoader('../templates');
