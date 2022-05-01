@@ -5,11 +5,15 @@ namespace App\Controllers;
 use Core\Controller;
 use Core\Models\Admin;
 
+/**
+ * Creation de la class AdminController pour l'authentification des administrateur
+ * methode login pour se connecter à l'administration
+ * methode logout pour se deconnecter et suppression des variables de session
+ */
+
 class AdminController extends Controller 
 {
     public $error = null;
-    
-
     public function login()
     {
         if($_SERVER['REQUEST_METHOD'] === "POST"){
