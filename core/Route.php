@@ -3,6 +3,11 @@ namespace Core;
 
 use App\Exceptions\NotFoundException;
 
+/**
+ * Creation de la class Route pour gerer nos routes : Routeur du site
+ * 
+ */
+
 class Route
 {
     private static $request;
@@ -22,12 +27,15 @@ class Route
     }
     public static function run()
     {
-        foreach(self::$request[$_SERVER['REQUEST_METHOD']] as $route){
+        if(isset($_SERVER['REQUEST_METHOD'])){
+            foreach(self::$request[$_SERVER['REQUEST_METHOD']] as $route){
             
-            if($route->matchs(trim($_GET['url']),'/')){
-                $route->execute();
-                die;
+                if($route->matchs(trim($_GET['url']),'/')){
+                    $route->execute();
+                    die;
+                }
             }
+
         }
        throw new NotFoundException("La page demandée n'existe pas !");
     }
