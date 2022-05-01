@@ -3,6 +3,11 @@ namespace Core\Database;
 
 use PDO;
 
+/**
+ * class DBConnection pour gerer la connection à la base de donnée
+ * Creation de l'instance PDO / methode getPDO
+ */
+
 class DBConnection
 {
     private $dbname = "Blog";
@@ -10,11 +15,6 @@ class DBConnection
     private $username = "root";
     private $password = "";
     private $pdo;
-
-    public function __construct()
-    {
-       
-    }
 
     public function getPDO():PDO 
     {

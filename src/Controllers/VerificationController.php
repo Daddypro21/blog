@@ -5,6 +5,11 @@ namespace App\Controllers;
 use Core\Controller;
 use Core\Models\Member;
 
+/**
+ * Creation de la class VerificationController pour gerer la confirmation d'un membre
+ * methode verification / On verifie si la cle entré par le client correspond à celle dans la BD
+ */
+
 class VerificationController extends Controller
 {
     public $error = null;

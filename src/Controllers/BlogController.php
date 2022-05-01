@@ -7,8 +7,14 @@ use Core\Models\Comment;
 use Core\Mail\ContactMail\MailMessage;
 use Core\Database\DBConnection;
 use Core\Mail\ContactMail\Mail;
-use DateTime;
 
+/**
+ * Creation de la class BlogController pour gerer le blog
+ * methode index pour gerer la page accueil
+ * methode show pour afficher un article et ces commentaires
+ * methode showAll pour afficher la liste des derniers arcticles
+ * methode contact pour gerer la page contact
+ */
 class BlogController extends Controller 
 {
     public $comments ;
@@ -82,9 +88,6 @@ class BlogController extends Controller
         $firstname = $_SESSION['first_name'] ?? null ;
         $post = new Post();
         $posts = $post->postAdminRelation();
-
-        //var_dump($posts);die;
-
         return $this->view('Default/posts',["idMember"=>$idMember,"title" => "posts","posts"=>$posts,
         "linkPost"=>$linkPost,"linkHome"=>$linkHome,"linkContact"=>$linkContact]);
 
@@ -126,16 +129,9 @@ class BlogController extends Controller
                     "linkPost"=>$linkPost,"linkHome"=>$linkHome,"linkContact"=>$linkContact,"response"=>$response]);
                 }
                }
-           }
-
-            
-
-               
+           }        
         }
-
         return $this->view('Default/contact',["idMember"=>$idMember,"title" => "Contact",
         "linkPost"=>$linkPost,"linkHome"=>$linkHome,"linkContact"=>$linkContact]);
-    }
-
-    
+    }    
 }

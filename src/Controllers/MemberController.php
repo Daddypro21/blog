@@ -7,6 +7,12 @@ use Core\Controller;
 use Core\Models\Member;
 use Core\Mail\MailMessage;
 
+/**
+ * Creation de la class MemberController pour gerer l'authentification
+ * methode connection pour gerer la connection au Blog si on est dejà membre
+ * methode register pour gerer l'inscription d'un nouveau membre
+ * methode logout pour la deconnection /suppression des variables de session
+ */
 class MemberController extends Controller 
 {
     public $error = null;
@@ -44,14 +50,9 @@ class MemberController extends Controller
                 return $this->view('Default/connection',["error"=>$this->error,"title" => "Se connecter",
                 "linkHome"=>$linkHome,"linkPost"=>$linkPost,"linkContact"=>$linkContact]);
             }
-            
-
         }
-        
-
         return $this->view('Default/connection',["error"=>$this->error,"title" => "Se connecter",
         "linkHome"=>$linkHome,"linkPost"=>$linkPost,"linkContact"=>$linkContact]);
-
     }
 
     public function register()
@@ -114,12 +115,8 @@ class MemberController extends Controller
             }
 
         }
-        
-
         return $this->view('Default/register',["error"=>$this->error,"title" => " S'inscrire",
         "linkHome"=>$linkHome,"linkPost"=>$linkPost,"linkContact"=>$linkContact]);
-
-
     }
 
     public function logout()
