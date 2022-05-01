@@ -102,7 +102,7 @@ class BlogController extends Controller
         $idMember = $_SESSION['id'] ?? null ;
         $firstname = $_SESSION['first_name'] ?? null ;
 
-        if($_SERVER['REQUEST_METHOD'] === "POST"){
+        if(isset($_SERVER['REQUEST_METHOD']) === "POST"){
 
            if(!empty($_POST['message'] && $_POST['name'] && $_POST['email'] && $_POST['subject'])){
                $email = $_POST['email'];
