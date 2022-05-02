@@ -34,7 +34,7 @@ class VerificationController extends Controller
                    (new SuperGlobals())->saveSession('last_name',$data['last_name']);
                    (new SuperGlobals())->saveSession('confirm_member',$data['confirm_member']);
                    (new SuperGlobals())->saveSession('id',$data['id']);
-                    header("Location:../blog");exit();
+                    header("Location:../blog");
                }
             }
                 $this->error = "Le code entré ne correspond pas !";
