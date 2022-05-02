@@ -38,7 +38,7 @@ class MemberController extends Controller
                     (new SuperGlobals())->saveSession('id',$member['id']) ;
                     (new SuperGlobals())->saveSession('email',$member['email']);
                     (new SuperGlobals())->saveSession('confirm_member',$member['confirm_member']);
-                    header('Location:../blog');die;
+                    header('Location:../blog');
                   
                 }
                 $this->error = "Mot de passe invalide";
@@ -104,7 +104,7 @@ class MemberController extends Controller
                         "cle"=>$cle ]);
                         if($response){
 
-                            header('Location:../blog/verification');die;
+                            header('Location:../blog/verification');
                         }
                 }      
             }else{
