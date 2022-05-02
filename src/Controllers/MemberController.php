@@ -63,10 +63,10 @@ class MemberController extends Controller
 
         if($_SERVER['REQUEST_METHOD'] === "POST"){
 
-            $email = \htmlspecialchars(SuperGlobals::fromPost('email'));
-            $firstName = \htmlspecialchars(SuperGlobals::fromPost('frist_name'));
-            $lastName = \htmlspecialchars(SuperGlobals::fromPost('last_name'));
-            $password = \htmlspecialchars(SuperGlobals::fromPost('password'));
+            $email = \htmlspecialchars((new SuperGlobals())->fromPost('email'));
+            $firstName = \htmlspecialchars((new SuperGlobals())->fromPost('frist_name'));
+            $lastName = \htmlspecialchars((new SuperGlobals())->fromPost('last_name'));
+            $password = \htmlspecialchars((new SuperGlobals())->fromPost('password'));
             $password = \password_hash($password,null);
 
             $cle = $password;
@@ -121,7 +121,7 @@ class MemberController extends Controller
 
     public function logout()
     {
-        SuperGlobals::destroySession();
+        (new SuperGlobals())->destroySession();
         header('Location:/blog');
     }
 

@@ -19,10 +19,10 @@ class VerificationController extends Controller
         $linkContact = 'contact';
         $linkPost = ' posts ';
         $linkHome = ' /blog/ ';
-        $idMember = SuperGlobals::fromSession('id')?? null ;
-        if(SuperGlobals::server() === "POST"){
+        $idMember = (new SuperGlobals())->fromSession('id')?? null ;
+        if((new SuperGlobals())->server() === "POST"){
 
-            $cle = htmlspecialchars(SuperGlobals::fromPost('cle'));
+            $cle = htmlspecialchars((new SuperGlobals())->fromPost('cle'));
             $member = new Member();
             $datas = $member->findByCle($cle);
             if(!empty($datas)){
@@ -30,10 +30,10 @@ class VerificationController extends Controller
                $response = $member->addConfirmCode($tab);
                if($response){
                    foreach($datas as $data);
-                   SuperGlobals::saveSession('first_name',$data['first_name']);
-                   SuperGlobals::saveSession('last_name',$data['last_name']);
-                   SuperGlobals::saveSession('confirm_member',$data['confirm_member']);
-                   SuperGlobals::saveSession('id',$data['id']);
+                   (new SuperGlobals())->saveSession('first_name',$data['first_name']);
+                   (new SuperGlobals())->saveSession('last_name',$data['last_name']);
+                   (new SuperGlobals())->saveSession('confirm_member',$data['confirm_member']);
+                   (new SuperGlobals())->saveSession('id',$data['id']);
                     header("Location:../blog");exit();
                }
             }

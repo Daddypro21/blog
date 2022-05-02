@@ -36,7 +36,7 @@ class Request
     public function execute()
     {
 
-        if(SuperGlobals::server() === "GET"){
+        if((new SuperGlobals)->server() === "GET"){
 
            $this->getRequest();
 

@@ -3,6 +3,10 @@ namespace Core;
 
 class SuperGlobals 
 {
+    public function __construct()
+    {
+        
+    }
     public static function fromPost($post)
     {
        if(!empty($_POST[$post])){
@@ -11,7 +15,7 @@ class SuperGlobals
        return null ;
     }
 
-    public static function fromGet($get)
+    public function fromGet($get)
     {
         if(!empty($_GET[$get])){
             return $_GET[$get];
@@ -19,7 +23,7 @@ class SuperGlobals
         return null;
     }
 
-    public static function fromSession($session)
+    public function fromSession($session)
     {
         if(!empty($_SESSION[$session])){
             return $_SESSION[$session];
@@ -27,19 +31,19 @@ class SuperGlobals
         return null;
     }
 
-    public static function saveSession($keys,$value)
+    public function saveSession($keys,$value)
     {
         if(!empty($value)){
-            return $_SESSION[$keys] = $value;
+            return $_SESSION[$keys]= $value; 
         }
     }
 
-    public static function destroySession()
+    public function destroySession()
     {
         return session_destroy();
     }
 
-    public static function server()
+    public function server()
     {
         if(!empty($_SERVER['REQUEST_METHOD'])){
             return $_SERVER['REQUEST_METHOD'];
