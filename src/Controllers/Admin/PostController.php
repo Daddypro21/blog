@@ -52,7 +52,12 @@ class PostController extends Controller
     {
         (new SuperGlobals())->fromSession('confirm_admin') ?? header('Location:../../blog/login');
         $post = new Post();
-        $result = $post->update($id, $_POST);
+        $data=[
+            "title"=>filter_input(INPUT_POST,'title'),
+            "content"=>filter_input(INPUT_POST,'content'),
+            "chapo"=>filter_input(INPUT_POST,'chapo')
+            ];
+        $result = $post->update($id, $data);
 
         if($result){
 
@@ -72,7 +77,12 @@ class PostController extends Controller
     {
         (new SuperGlobals())->fromSession('confirm_admin') ?? header('Location:../../../blog/login');
         $post = new Post();
-        $result = $post->createPost((new SuperGlobals())->fromSession('id'),$_POST);
+        $data=[
+        "title"=>filter_input(INPUT_POST,'title'),
+        "content"=>filter_input(INPUT_POST,'content'),
+        "chapo"=>filter_input(INPUT_POST,'chapo')
+        ];
+        $result = $post->createPost((new SuperGlobals())->fromSession('id'),$data);
 
         if($result){
             header('Location: ../../../../blog/admin/posts');
