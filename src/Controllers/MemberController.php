@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use Core\Mail\Mail;
 use Core\Controller;
+use Core\SuperGlobals;
 use Core\Models\Member;
 use Core\Mail\MailMessage;
 
@@ -25,19 +26,18 @@ class MemberController extends Controller
         $linkPost = ' posts ';
         $linkHome = ' /blog/ ';
 
-        if($_SERVER['REQUEST_METHOD'] === "POST"){
+        if(SuperGlobals::server() === "POST"){
 
-            $email = \htmlspecialchars($_POST['email']);
-            $password = \htmlspecialchars($_POST['password']);
+            $email = \htmlspecialchars(SuperGlobals::fromPost('email'));
+            $password = \htmlspecialchars(SuperGlobals::fromPost('password'));
             $members = (new Member())->getByEmail($email);
             foreach($members as $member);
             if(!empty($member)){
                 if(password_verify($password,$member['passwords'])){
 
-                    $_SESSION['id'] = $member['id'];
-                    $_SESSION['email'] = $member['email'];
-                    $_SESSION['confirm_member'] = $member['confirm_member'];
-                   
+                    SuperGlobals::saveSession('id',$member['id']) ;
+                    SuperGlobals::saveSession('email',$member['email']);
+                    SuperGlobals::saveSession('confirm_member',$member['confirm_member']);
                     header('Location:../blog');die;
                   
                 }
@@ -63,10 +63,10 @@ class MemberController extends Controller
 
         if($_SERVER['REQUEST_METHOD'] === "POST"){
 
-            $email = \htmlspecialchars($_POST['email']);
-            $firstName = \htmlspecialchars($_POST['first_name']);
-            $lastName = \htmlspecialchars($_POST['last_name']);
-            $password = \htmlspecialchars($_POST['password']);
+            $email = \htmlspecialchars(SuperGlobals::fromPost('email'));
+            $firstName = \htmlspecialchars(SuperGlobals::fromPost('frist_name'));
+            $lastName = \htmlspecialchars(SuperGlobals::fromPost('last_name'));
+            $password = \htmlspecialchars(SuperGlobals::fromPost('password'));
             $password = \password_hash($password,null);
 
             $cle = $password;
@@ -121,7 +121,7 @@ class MemberController extends Controller
 
     public function logout()
     {
-        session_destroy();
+        SuperGlobals::destroySession();
         header('Location:/blog');
     }
 

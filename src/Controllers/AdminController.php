@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use Core\Controller;
 use Core\Models\Admin;
+use Core\SuperGlobals;
 
 /**
  * Creation de la class AdminController pour l'authentification des administrateur
@@ -16,18 +17,17 @@ class AdminController extends Controller
     public $error = null;
     public function login()
     {
-        if(isset($_SERVER['REQUEST_METHOD']) === "POST"){
+        if(SuperGlobals::server() === "POST"){
 
-            $users = (new Admin())->getByEmail(isset($_POST['email'])); 
+            $users = (new Admin())->getByEmail(SuperGlobals::fromPost('email')); 
             foreach($users as $user){
-                    //var_dump($user['password']);die;
-            if(password_verify(isset($_POST['password']),$user['password'])){
+            if(password_verify(SuperGlobals::fromPost('password'),$user['password'])){
 
-                    $_SESSION['id'] = $user['id'];
-                    $_SESSION['email'] = $user['email'];
-                    $_SESSION['first_name'] = $user['first_name'];
-                    $_SESSION['confirm_admin'] = $user['confirm_admin'];
-                    header('Location:../blog/admin/posts');die;
+                    SuperGlobals::saveSession('id',$user['id']) ;
+                    SuperGlobals::saveSession('email',$user['email']);
+                    SuperGlobals::saveSession('first_name',$user['first_name']);
+                    SuperGlobals::saveSession('confirm_admin',$user['confirm_admin']);
+                    header('Location:../blog/admin/posts');exit();
                   
             }else{
                 
@@ -44,7 +44,7 @@ class AdminController extends Controller
     }
 
     public function logout(){
-        session_destroy();
+        SuperGlobals::destroySession();
         header('Location:../../blog/login');
     }
 
