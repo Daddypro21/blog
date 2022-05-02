@@ -103,7 +103,7 @@ class BlogController extends Controller
         $idMember = (new SuperGlobals())->fromSession('id') ?? null ;
         $firstname = (new SuperGlobals())->fromSession('first_name') ?? null ;
 
-        if($_SERVER['REQUEST_METHOD'] === "POST"){
+        if((new SuperGlobals())->server()=== "POST"){
            if(!empty((new SuperGlobals())->fromPost('message') && (new SuperGlobals())->fromPost('name') && (new SuperGlobals())->fromPost('email') && (new SuperGlobals())->fromPost('subject'))){
                $email =(new SuperGlobals())->fromPost('email');
                if(filter_var($email, FILTER_VALIDATE_EMAIL)){
