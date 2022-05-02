@@ -11,7 +11,7 @@ class Controller
         $twig = new \Twig\Environment($loader);
 
         
-        echo $twig->render($path.'.html.twig',  $data);
+        print_r( $twig->render($path.'.html.twig',  $data));
     }
 
     
