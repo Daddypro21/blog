@@ -26,18 +26,18 @@ class MemberController extends Controller
         $linkPost = ' posts ';
         $linkHome = ' /blog/ ';
 
-        if(SuperGlobals::server() === "POST"){
+        if((new SuperGlobals())->server() === "POST"){
 
-            $email = \htmlspecialchars(SuperGlobals::fromPost('email'));
-            $password = \htmlspecialchars(SuperGlobals::fromPost('password'));
+            $email = \htmlspecialchars((new SuperGlobals())->fromPost('email'));
+            $password = \htmlspecialchars((new SuperGlobals())->fromPost('password'));
             $members = (new Member())->getByEmail($email);
             foreach($members as $member);
             if(!empty($member)){
                 if(password_verify($password,$member['passwords'])){
 
-                    SuperGlobals::saveSession('id',$member['id']) ;
-                    SuperGlobals::saveSession('email',$member['email']);
-                    SuperGlobals::saveSession('confirm_member',$member['confirm_member']);
+                    (new SuperGlobals())->saveSession('id',$member['id']) ;
+                    (new SuperGlobals())->saveSession('email',$member['email']);
+                    (new SuperGlobals())->saveSession('confirm_member',$member['confirm_member']);
                     header('Location:../blog');die;
                   
                 }
@@ -61,7 +61,7 @@ class MemberController extends Controller
         $linkPost = ' posts ';
         $linkHome = ' /blog/ ';
 
-        if($_SERVER['REQUEST_METHOD'] === "POST"){
+        if((new SuperGlobals())->server() === "POST"){
 
             $email = \htmlspecialchars((new SuperGlobals())->fromPost('email'));
             $firstName = \htmlspecialchars((new SuperGlobals())->fromPost('frist_name'));
