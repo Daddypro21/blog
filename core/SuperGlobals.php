@@ -9,16 +9,16 @@ class SuperGlobals
     }
     public static function fromPost($post)
     {
-       if(!empty($_POST)){
-           return $_POST[$post];
+       if(filter_input(INPUT_POST,$post)){
+           return filter_input(INPUT_POST,$post);
        }
        return null ;
     }
 
     public function fromGet($get)
     {
-        if(!empty($_GET)){
-            return $_GET[$get];
+        if(filter_input(INPUT_GET,$get)){
+            return filter_input(INPUT_GET,$get);
         }
         return null;
     }
