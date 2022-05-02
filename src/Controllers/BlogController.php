@@ -52,7 +52,7 @@ class BlogController extends Controller
 
         $comment = new Comment();
 
-        if($_SERVER['REQUEST_METHOD'] === "POST"){
+        if((new SuperGlobals())->server() === "POST"){
                 
             if(!empty((new SuperGlobals())->fromPost('comment')) ){
                 $commentPost = htmlspecialchars((new SuperGlobals())->fromPost('comment'));
