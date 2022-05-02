@@ -5,11 +5,11 @@ class SuperGlobals
 {
     public function __construct()
     {
-        
+
     }
     public static function fromPost($post)
     {
-       if(!empty($_POST[$post])){
+       if(!empty($_POST)){
            return $_POST[$post];
        }
        return null ;
@@ -17,7 +17,7 @@ class SuperGlobals
 
     public function fromGet($get)
     {
-        if(!empty($_GET[$get])){
+        if(!empty($_GET)){
             return $_GET[$get];
         }
         return null;
