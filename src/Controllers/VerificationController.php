@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use Core\Controller;
+use Core\SuperGlobals;
 use Core\Models\Member;
 
 /**
@@ -18,10 +19,10 @@ class VerificationController extends Controller
         $linkContact = 'contact';
         $linkPost = ' posts ';
         $linkHome = ' /blog/ ';
-        $idMember = $_SESSION['id'] ?? null ;
-        if($_SERVER['REQUEST_METHOD'] === "POST"){
+        $idMember = SuperGlobals::fromSession('id')?? null ;
+        if(SuperGlobals::server() === "POST"){
 
-            $cle = htmlspecialchars($_POST['cle']);
+            $cle = htmlspecialchars(SuperGlobals::fromPost('cle'));
             $member = new Member();
             $datas = $member->findByCle($cle);
             if(!empty($datas)){
@@ -29,10 +30,10 @@ class VerificationController extends Controller
                $response = $member->addConfirmCode($tab);
                if($response){
                    foreach($datas as $data);
-                    $_SESSION['first_name'] = $data['first_name'];
-                    $_SESSION['last_name'] = $data['last_name'];
-                    $_SESSION['confirm_member'] = $data['confirm_member'];
-                    $_SESSION['id'] = $data['id'];
+                   SuperGlobals::saveSession('first_name',$data['first_name']);
+                   SuperGlobals::saveSession('last_name',$data['last_name']);
+                   SuperGlobals::saveSession('confirm_member',$data['confirm_member']);
+                   SuperGlobals::saveSession('id',$data['id']);
                     header("Location:../blog");exit();
                }
             }
