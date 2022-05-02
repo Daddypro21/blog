@@ -27,8 +27,8 @@ class BlogController extends Controller
         $linkPost = ' posts ';
         $linkHome = ' /blog/ ';
 
-        $firstname = SuperGlobals::fromSession('firstname') ?? null ;
-        $idMember = SuperGlobals::fromSession('id')?? null ;
+        $firstname = (new SuperGlobals())->fromSession('firstname') ?? null ;
+        $idMember = (new SuperGlobals())->fromSession('id')?? null ;
         $db = new DBConnection();
         $req = $db->getPDO()->query("SELECT * FROM posts");          
         $posts = $req->fetchAll();
@@ -43,10 +43,10 @@ class BlogController extends Controller
         $linkContact = '../../blog/contact';
         $linkPost = ' ../posts ';
         $linkHome = ' /blog/ ';
-        $idMember = SuperGlobals::fromSession('id') ?? null ;
+        $idMember = (new SuperGlobals())->fromSession('id') ?? null ;
 
-        $confirm = SuperGlobals::fromSession('confirm_member') ?? null ;
-        $firstname = SuperGlobals::fromSession('first_name') ?? null ;
+        $confirm = (new SuperGlobals())->fromSession('confirm_member') ?? null ;
+        $firstname = (new SuperGlobals())->fromSession('first_name') ?? null ;
         $post = new Post();
         $posts = $post->findByIdRelationPostAdmin($id);
 
@@ -54,9 +54,9 @@ class BlogController extends Controller
 
         if($_SERVER['REQUEST_METHOD'] === "POST"){
                 
-            if(!empty(SuperGlobals::fromPost('comment')) ){
-                $commentPost = htmlspecialchars(SuperGlobals::fromPost('comment'));
-                $idMember = htmlspecialchars(SuperGlobals::fromSession('id'));
+            if(!empty((new SuperGlobals())->fromPost('comment')) ){
+                $commentPost = htmlspecialchars((new SuperGlobals())->fromPost('comment'));
+                $idMember = htmlspecialchars((new SuperGlobals())->fromSession('id'));
                 $data =[
                     "comment"=>$commentPost,"id_members"=>$idMember,"id_post"=>$id
                 ];
@@ -85,8 +85,8 @@ class BlogController extends Controller
         $linkPost = ' ../posts ';
         $linkHome = ' /blog/ ';
 
-        $idMember = SuperGlobals::fromSession('id') ?? null ;
-        $firstname = SuperGlobals::fromSession('first_name') ?? null ;
+        $idMember = (new SuperGlobals())->fromSession('id') ?? null ;
+        $firstname =(new SuperGlobals())->fromSession('first_name') ?? null ;
         $post = new Post();
         $posts = $post->postAdminRelation();
         return $this->view('Default/posts',["idMember"=>$idMember,"title" => "posts","posts"=>$posts,
@@ -100,16 +100,16 @@ class BlogController extends Controller
         $linkPost = ' ../blog/posts ';
         $linkHome = ' /blog/ ';
 
-        $idMember = SuperGlobals::fromSession('id') ?? null ;
-        $firstname = SuperGlobals::fromSession('first_name') ?? null ;
+        $idMember = (new SuperGlobals())->fromSession('id') ?? null ;
+        $firstname = (new SuperGlobals())->fromSession('first_name') ?? null ;
 
         if($_SERVER['REQUEST_METHOD'] === "POST"){
-           if(!empty(SuperGlobals::fromPost('message') && SuperGlobals::fromPost('name') && SuperGlobals::fromPost('email') && SuperGlobals::fromPost('subject'))){
-               $email = SuperGlobals::fromPost('email');
+           if(!empty((new SuperGlobals())->fromPost('message') && (new SuperGlobals())->fromPost('name') && (new SuperGlobals())->fromPost('email') && (new SuperGlobals())->fromPost('subject'))){
+               $email =(new SuperGlobals())->fromPost('email');
                if(filter_var($email, FILTER_VALIDATE_EMAIL)){
-                $message = htmlspecialchars(SuperGlobals::fromPost('message'));
-                $name = htmlspecialchars(SuperGlobals::fromPost('name'));
-                $subject = htmlspecialchars(SuperGlobals::fromPost('subject'));
+                $message = htmlspecialchars((new SuperGlobals())->fromPost('message'));
+                $name = htmlspecialchars((new SuperGlobals())->fromPost('name'));
+                $subject = htmlspecialchars((new SuperGlobals())->fromPost('subject'));
                 
                 $EmailMessage = new MailMessage();
                 $messageMail = $EmailMessage->message($email,$message,$name);

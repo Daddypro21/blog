@@ -17,16 +17,16 @@ class AdminController extends Controller
     public $error = null;
     public function login()
     {
-        if(SuperGlobals::server() === "POST"){
+        if((new SuperGlobals())->server() === "POST"){
 
-            $users = (new Admin())->getByEmail(SuperGlobals::fromPost('email')); 
+            $users = (new Admin())->getByEmail((new SuperGlobals())->fromPost('email')); 
             foreach($users as $user){
-            if(password_verify(SuperGlobals::fromPost('password'),$user['password'])){
+            if(password_verify((new SuperGlobals())->fromPost('password'),$user['password'])){
 
-                    SuperGlobals::saveSession('id',$user['id']) ;
-                    SuperGlobals::saveSession('email',$user['email']);
-                    SuperGlobals::saveSession('first_name',$user['first_name']);
-                    SuperGlobals::saveSession('confirm_admin',$user['confirm_admin']);
+                    (new SuperGlobals())->saveSession('id',$user['id']) ;
+                    (new SuperGlobals())->saveSession('email',$user['email']);
+                    (new SuperGlobals())->saveSession('first_name',$user['first_name']);
+                    (new SuperGlobals())->saveSession('confirm_admin',$user['confirm_admin']);
                     header('Location:../blog/admin/posts');exit();
                   
             }else{
@@ -44,7 +44,7 @@ class AdminController extends Controller
     }
 
     public function logout(){
-        SuperGlobals::destroySession();
+        (new SuperGlobals())->destroySession();
         header('Location:../../blog/login');
     }
 
