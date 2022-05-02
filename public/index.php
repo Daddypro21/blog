@@ -14,5 +14,5 @@ require "../src/routes/routes.php";
 try{
     Route::run();
 }catch(NotFoundException $e){
-    echo $e->error404();
+    print_r ($e->error404());
 }
