@@ -22,9 +22,9 @@ class Route
     }
     public static function run()
     {
-        if(SuperGlobals::server()){
-            foreach(self::$request[SuperGlobals::server()] as $route){
-                if($route->matchs(trim(SuperGlobals::fromGet('url')),'/')){
+        if((new SuperGlobals())->server()){
+            foreach(self::$request[(new SuperGlobals())->server()] as $route){
+                if($route->matchs(trim((new SuperGlobals())->fromGet('url')),'/')){
                     $route->execute();
                     die;
                 }

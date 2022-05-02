@@ -60,7 +60,7 @@ abstract class Model
     {
 
         $data["id"] = $id;
-        $data['id_admin'] = SuperGlobals::fromSession('id');
+        $data['id_admin'] = (new SuperGlobals)->fromSession('id');
         $date = date("Y/m/d H:i:s");
         $data['update_at'] = $date ;
         $req = $this->db->getPDO()->prepare(" UPDATE {$this->table} SET title = :title,content = :content,update_at = :update_at,chapo = :chapo,id_admin = :id_admin WHERE id = :id ");
