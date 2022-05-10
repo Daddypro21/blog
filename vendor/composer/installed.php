@@ -1,22 +1,22 @@
 <?php return array(
     'root' => array(
-        'pretty_version' => '1.0.0+no-version-set',
-        'version' => '1.0.0.0',
+        'pretty_version' => 'dev-master',
+        'version' => 'dev-master',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => NULL,
+        'reference' => 'eb01ccbf341f6e9abdb71a72cd186337e6fb5c65',
         'name' => 'daddypro21/blog',
         'dev' => true,
     ),
     'versions' => array(
         'daddypro21/blog' => array(
-            'pretty_version' => '1.0.0+no-version-set',
-            'version' => '1.0.0.0',
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => NULL,
+            'reference' => 'eb01ccbf341f6e9abdb71a72cd186337e6fb5c65',
             'dev_requirement' => false,
         ),
         'symfony/polyfill-ctype' => array(
