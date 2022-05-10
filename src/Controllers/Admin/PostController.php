@@ -24,45 +24,54 @@ class PostController extends Controller
         (new SuperGlobals())->fromSession('confirm_admin') ?? header('Location:../../blog/login');
         $posts = (new Post())->all();
         return $this->view('Default/admin/post/index',["posts"=>$posts,"title"=>"Administration",
-        "confirmAdmin"=>(new SuperGlobals())->fromSession('confirm_admin')]);
+        "confirmAdmin"=>(new SuperGlobals())->fromSession('confirm_admin'),
+        "token"=>(new SuperGlobals())->fromSession('token')]);
         
     }
 
     public function destroy($id)
     {
         (new SuperGlobals())->fromSession('confirm_admin') ?? header('Location:../../blog/login');
-        $post = new Post();
-        $result = $post->destroy($id);
+        if((new SuperGlobals())->fromSession('token') == (new SuperGlobals())->fromPost('token') ){
+            $post = new Post();
+            $result = $post->destroy($id);
 
-        if($result){
+            if($result){
             return header('Location:../../../../blog/admin/posts');
         }
+        }
+        
     }
 
     public function edit($id)
     {
         (new SuperGlobals())->fromSession('confirm_admin') ?? header('Location:../../../../blog/login');
-        $posts = (new Post())->findById($id);
+            $posts = (new Post())->findById($id);
 
-        return $this->view('Default/admin/post/edit',["posts"=>$posts,"id"=>$id,"title"=>"Modifier un article",
-        "confirmAdmin"=>(new SuperGlobals())->fromSession('confirm_admin')]);
+            return $this->view('Default/admin/post/edit',["posts"=>$posts,"id"=>$id,"title"=>"Modifier un article",
+            "confirmAdmin"=>(new SuperGlobals())->fromSession('confirm_admin'),
+            "token"=>(new SuperGlobals())->fromSession('token')]);
+        
     }
 
     public function update($id)
     {
         (new SuperGlobals())->fromSession('confirm_admin') ?? header('Location:../../blog/login');
-        $post = new Post();
-        $data=[
-            "title"=>filter_input(INPUT_POST,'title'),
-            "content"=>filter_input(INPUT_POST,'content'),
-            "chapo"=>filter_input(INPUT_POST,'chapo')
+        if((new SuperGlobals())->fromSession('token') == (new SuperGlobals())->fromPost('token') ){
+            $post = new Post();
+            $data=[
+                "title"=>filter_input(INPUT_POST,'title'),
+                "content"=>filter_input(INPUT_POST,'content'),
+                "chapo"=>filter_input(INPUT_POST,'chapo')
             ];
-        $result = $post->update($id, $data);
+            $result = $post->update($id, $data);
 
-        if($result){
+            if($result){
 
             header('Location: ../../../../blog/admin/posts');
+            }
         }
+        
     }
 
     public function create()
