@@ -27,8 +27,19 @@ class AdminController extends Controller
                     (new SuperGlobals())->saveSession('email',$user['email']);
                     (new SuperGlobals())->saveSession('first_name',$user['first_name']);
                     (new SuperGlobals())->saveSession('confirm_admin',$user['confirm_admin']);
-                    header('Location:../blog/admin/posts');exit();
-                  
+
+                    $token =(new SuperGlobals())->saveSession('token',md5(rand(100,10000)));
+                    $data =[
+                        'token'=>$token,
+                        'id'=>$user['id']
+                    ];
+                    $users = (new Admin())->addToken($data);
+                    if(!empty($users)){
+                        header('Location:../blog/admin/posts');
+                        exit();
+                        //var_dump($_SESSION['token']);die;
+                    }
+                    
             }else{
                 
                 $this->error = "Mot de passe invalide";
