@@ -91,6 +91,13 @@ abstract class Model
         $response = $req->execute($data);
         return $response; 
     }
+
+    public function addToken( $data)
+    {
+        $req = $this->db->getPDO()->prepare("UPDATE {$this->table} SET token = :token WHERE id = :id");
+        $response = $req->execute($data);
+        return $response;
+    }
     public function createPost($idAdmin, array $data)
     {
         
