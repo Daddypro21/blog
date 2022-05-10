@@ -25,6 +25,7 @@
             <td>
                 <a href="../admin/posts/edit/{{post.id}}" class="btn btn-warning">Modifier</a>
                 <form action="../admin/posts/delete/{{post.id}}" method="POST" class="d-inline">
+                <input type="hidden" name="token" id="token" value={{ token }}>
                 <button type="submit"class="btn btn-danger">Supprimer</button>
                 </form>
             </td>

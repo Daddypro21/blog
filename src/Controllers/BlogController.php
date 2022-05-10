@@ -3,11 +3,19 @@ namespace App\Controllers;
 
 use Core\Controller;
 use Core\Models\Post;
+use Core\SuperGlobals;
 use Core\Models\Comment;
-use Core\Mail\ContactMail\MailMessage;
 use Core\Database\DBConnection;
 use Core\Mail\ContactMail\Mail;
+use Core\Mail\ContactMail\MailMessage;
 
+/**
+ * Creation de la class BlogController pour gerer le blog
+ * methode index pour gerer la page accueil
+ * methode show pour afficher un article et ces commentaires
+ * methode showAll pour afficher la liste des derniers arcticles
+ * methode contact pour gerer la page contact
+ */
 class BlogController extends Controller 
 {
     public $comments ;
@@ -19,8 +27,8 @@ class BlogController extends Controller
         $linkPost = ' posts ';
         $linkHome = ' /blog/ ';
 
-        $firstname = $_SESSION['first_name'] ?? null ;
-        $idMember = $_SESSION['id'] ?? null ;
+        $firstname = (new SuperGlobals())->fromSession('firstname') ?? null ;
+        $idMember = (new SuperGlobals())->fromSession('id')?? null ;
         $db = new DBConnection();
         $req = $db->getPDO()->query("SELECT * FROM posts");          
         $posts = $req->fetchAll();
@@ -35,25 +43,25 @@ class BlogController extends Controller
         $linkContact = '../../blog/contact';
         $linkPost = ' ../posts ';
         $linkHome = ' /blog/ ';
-        $idMember = $_SESSION['id'] ?? null ;
+        $idMember = (new SuperGlobals())->fromSession('id') ?? null ;
 
-        $confirm = $_SESSION['confirm_member'] ?? null ;
-        $firstname = $_SESSION['first_name'] ?? null ;
+        $confirm = (new SuperGlobals())->fromSession('confirm_member') ?? null ;
+        $firstname = (new SuperGlobals())->fromSession('first_name') ?? null ;
         $post = new Post();
         $posts = $post->findByIdRelationPostAdmin($id);
 
         $comment = new Comment();
 
-        if($_SERVER['REQUEST_METHOD'] === "POST"){
+        if((new SuperGlobals())->server() === "POST"){
                 
-            if(!empty($_POST['comment']) ){
-                var_dump($_POST['comment']);die;
-                $commentPost = htmlspecialchars($_POST['comment']);
-                $idMember = htmlspecialchars($_SESSION['id']);
+            if(!empty((new SuperGlobals())->fromPost('comment')) ){
+                $commentPost = htmlspecialchars((new SuperGlobals())->fromPost('comment'));
+                $idMember = htmlspecialchars((new SuperGlobals())->fromSession('id'));
                 $data =[
                     "comment"=>$commentPost,"id_members"=>$idMember,"id_post"=>$id
                 ];
                 $comments = $comment->comment($data);
+                header("location:../../blog/posts/{$id}");
             }else{
                 $this->error = "Ce champs ne peut pas être vide";
             }
@@ -77,13 +85,10 @@ class BlogController extends Controller
         $linkPost = ' ../posts ';
         $linkHome = ' /blog/ ';
 
-        $idMember = $_SESSION['id'] ?? null ;
-        $firstname = $_SESSION['first_name'] ?? null ;
+        $idMember = (new SuperGlobals())->fromSession('id') ?? null ;
+        $firstname =(new SuperGlobals())->fromSession('first_name') ?? null ;
         $post = new Post();
         $posts = $post->postAdminRelation();
-
-        //var_dump($posts);die;
-
         return $this->view('Default/posts',["idMember"=>$idMember,"title" => "posts","posts"=>$posts,
         "linkPost"=>$linkPost,"linkHome"=>$linkHome,"linkContact"=>$linkContact]);
 
@@ -95,46 +100,38 @@ class BlogController extends Controller
         $linkPost = ' ../blog/posts ';
         $linkHome = ' /blog/ ';
 
-        $idMember = $_SESSION['id'] ?? null ;
-        $firstname = $_SESSION['first_name'] ?? null ;
+        $idMember = (new SuperGlobals())->fromSession('id') ?? null ;
+        $firstname = (new SuperGlobals())->fromSession('first_name') ?? null ;
 
-        if($_SERVER['REQUEST_METHOD'] === "POST"){
-
-           if(!empty($_POST['message'] && $_POST['name'] && $_POST['email'] && $_POST['subject'])){
-               $email = $_POST['email'];
+        if((new SuperGlobals())->server()=== "POST"){
+           if(!empty((new SuperGlobals())->fromPost('message') && (new SuperGlobals())->fromPost('name') && (new SuperGlobals())->fromPost('email') && (new SuperGlobals())->fromPost('subject'))){
+               $email =(new SuperGlobals())->fromPost('email');
                if(filter_var($email, FILTER_VALIDATE_EMAIL)){
-                $message = htmlspecialchars($_POST['message']);
-                $name = htmlspecialchars($_POST['name']);
-                $subject = htmlspecialchars($_POST['subject']);
+                $message = htmlspecialchars((new SuperGlobals())->fromPost('message'));
+                $name = htmlspecialchars((new SuperGlobals())->fromPost('name'));
+                $subject = htmlspecialchars((new SuperGlobals())->fromPost('subject'));
                 
                 $EmailMessage = new MailMessage();
                 $messageMail = $EmailMessage->message($email,$message,$name);
 
                 $mail = new Mail();
-                $to = "sndemapro@gmail.com";
+                $too = "sndemapro@gmail.com";
                 $subject = $subject;
                 $message = $messageMail;
                 $headers ="";
                 $headers .= "From: {$email}" . "\r\n" ;
                 $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
                 "CC:". $email;
-                $response = $mail->sendMail($to,$subject,$message,$headers);
+                $response = $mail->sendMail($too,$subject,$message,$headers);
                 if($response){
                     $response ="Votre message a été envoyé !";
                     return $this->view('Default/contact',["idMember"=>$idMember,"title" => "Contact",
                     "linkPost"=>$linkPost,"linkHome"=>$linkHome,"linkContact"=>$linkContact,"response"=>$response]);
                 }
                }
-           }
-
-            
-
-               
+           }        
         }
-
         return $this->view('Default/contact',["idMember"=>$idMember,"title" => "Contact",
         "linkPost"=>$linkPost,"linkHome"=>$linkHome,"linkContact"=>$linkContact]);
-    }
-
-    
+    }    
 }

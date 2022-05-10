@@ -4,27 +4,42 @@ namespace App\Controllers;
 
 use Core\Controller;
 use Core\Models\Admin;
+use Core\SuperGlobals;
+
+/**
+ * Creation de la class AdminController pour l'authentification des administrateur
+ * methode login pour se connecter à l'administration
+ * methode logout pour se deconnecter et suppression des variables de session
+ */
 
 class AdminController extends Controller 
 {
     public $error = null;
-    
-
     public function login()
     {
-        if($_SERVER['REQUEST_METHOD'] === "POST"){
+        if((new SuperGlobals())->server() === "POST"){
 
-            $users = (new Admin())->getByEmail($_POST['email']); 
+            $users = (new Admin())->getByEmail((new SuperGlobals())->fromPost('email')); 
             foreach($users as $user){
-                    //var_dump($user['password']);die;
-            if(password_verify($_POST['password'],$user['password'])){
+            if(password_verify((new SuperGlobals())->fromPost('password'),$user['password'])){
 
-                    $_SESSION['id'] = $user['id'];
-                    $_SESSION['email'] = $user['email'];
-                    $_SESSION['first_name'] = $user['first_name'];
-                    $_SESSION['confirm_admin'] = $user['confirm_admin'];
-                    header('Location:../blog/admin/posts');die;
-                  
+                    (new SuperGlobals())->saveSession('id',$user['id']) ;
+                    (new SuperGlobals())->saveSession('email',$user['email']);
+                    (new SuperGlobals())->saveSession('first_name',$user['first_name']);
+                    (new SuperGlobals())->saveSession('confirm_admin',$user['confirm_admin']);
+
+                    $token =(new SuperGlobals())->saveSession('token',md5(rand(100,10000)));
+                    $data =[
+                        'token'=>$token,
+                        'id'=>$user['id']
+                    ];
+                    $users = (new Admin())->addToken($data);
+                    if(!empty($users)){
+                        header('Location:../blog/admin/posts');
+                        exit();
+                        //var_dump($_SESSION['token']);die;
+                    }
+                    
             }else{
                 
                 $this->error = "Mot de passe invalide";
@@ -40,7 +55,7 @@ class AdminController extends Controller
     }
 
     public function logout(){
-        session_destroy();
+        (new SuperGlobals())->destroySession();
         header('Location:../../blog/login');
     }
 

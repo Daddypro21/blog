@@ -27,10 +27,10 @@ class Route
     }
     public static function run()
     {
-        if(isset($_SERVER['REQUEST_METHOD'])){
-            foreach(self::$request[$_SERVER['REQUEST_METHOD']] as $route){
+        if((new SuperGlobals())->server() ){
+            foreach(self::$request[(new SuperGlobals())->server()] as $route){
                 
-                $getUrl = ($_GET['url']) ?? null ;
+                $getUrl = ((new SuperGlobals())->fromGet('url')) ?? null ;
                 if($route->matchs(trim($getUrl),'/')){
                     $route->execute();
                     die;
@@ -38,6 +38,7 @@ class Route
             }
 
         }
+        
        throw new NotFoundException("La page demandée n'existe pas !");
     }
 }

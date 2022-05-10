@@ -4,9 +4,16 @@ namespace App\Controllers;
 
 use Core\Mail\Mail;
 use Core\Controller;
+use Core\SuperGlobals;
 use Core\Models\Member;
 use Core\Mail\MailMessage;
 
+/**
+ * Creation de la class MemberController pour gerer l'authentification
+ * methode connection pour gerer la connection au Blog si on est dejà membre
+ * methode register pour gerer l'inscription d'un nouveau membre
+ * methode logout pour la deconnection /suppression des variables de session
+ */
 class MemberController extends Controller 
 {
     public $error = null;
@@ -19,38 +26,33 @@ class MemberController extends Controller
         $linkPost = ' posts ';
         $linkHome = ' /blog/ ';
 
-        if($_SERVER['REQUEST_METHOD'] === "POST"){
+        if((new SuperGlobals())->server() === "POST"){
 
-            $email = \htmlspecialchars($_POST['email']);
-            $password = \htmlspecialchars($_POST['password']);
+            $email = \htmlspecialchars((new SuperGlobals())->fromPost('email'));
+            $password = \htmlspecialchars((new SuperGlobals())->fromPost('password'));
             $members = (new Member())->getByEmail($email);
             foreach($members as $member);
             if(!empty($member)){
                 if(password_verify($password,$member['passwords'])){
 
-                    $_SESSION['id'] = $member['id'];
-                    $_SESSION['email'] = $member['email'];
-                   
-                    header('Location:../blog');die;
+                    (new SuperGlobals())->saveSession('id',$member['id']) ;
+                    (new SuperGlobals())->saveSession('email',$member['email']);
+                    (new SuperGlobals())->saveSession('confirm_member',$member['confirm_member']);
+                    header('Location:../blog');
                   
-                }else{ 
+                }
                 $this->error = "Mot de passe invalide";
                 return $this->view('Default/connection',["error"=>$this->error,"title" => "Se connecter",
                 "linkHome"=>$linkHome,"linkPost"=>$linkPost,"linkContact"=>$linkContact]);
-                }
+                
             }else{
                 $this->error = "Cet utilisateur n'existe pas !!";
                 return $this->view('Default/connection',["error"=>$this->error,"title" => "Se connecter",
                 "linkHome"=>$linkHome,"linkPost"=>$linkPost,"linkContact"=>$linkContact]);
             }
-            
-
         }
-        
-
         return $this->view('Default/connection',["error"=>$this->error,"title" => "Se connecter",
         "linkHome"=>$linkHome,"linkPost"=>$linkPost,"linkContact"=>$linkContact]);
-
     }
 
     public function register()
@@ -59,12 +61,12 @@ class MemberController extends Controller
         $linkPost = ' posts ';
         $linkHome = ' /blog/ ';
 
-        if($_SERVER['REQUEST_METHOD'] === "POST"){
+        if((new SuperGlobals())->server() === "POST"){
 
-            $email = \htmlspecialchars($_POST['email']);
-            $firstName = \htmlspecialchars($_POST['first_name']);
-            $lastName = \htmlspecialchars($_POST['last_name']);
-            $password = \htmlspecialchars($_POST['password']);
+            $email = \htmlspecialchars((new SuperGlobals())->fromPost('email'));
+            $firstName = \htmlspecialchars((new SuperGlobals())->fromPost('frist_name'));
+            $lastName = \htmlspecialchars((new SuperGlobals())->fromPost('last_name'));
+            $password = \htmlspecialchars((new SuperGlobals())->fromPost('password'));
             $password = \password_hash($password,null);
 
             $cle = $password;
@@ -102,7 +104,7 @@ class MemberController extends Controller
                         "cle"=>$cle ]);
                         if($response){
 
-                            header('Location:../blog/verification');die;
+                            header('Location:../blog/verification');
                         }
                 }      
             }else{
@@ -113,17 +115,13 @@ class MemberController extends Controller
             }
 
         }
-        
-
         return $this->view('Default/register',["error"=>$this->error,"title" => " S'inscrire",
         "linkHome"=>$linkHome,"linkPost"=>$linkPost,"linkContact"=>$linkContact]);
-
-
     }
 
     public function logout()
     {
-        session_destroy();
+        (new SuperGlobals())->destroySession();
         header('Location:/blog');
     }
 

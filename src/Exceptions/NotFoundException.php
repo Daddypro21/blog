@@ -6,6 +6,11 @@ use Exception;
 use Throwable;
 use Core\Controller;
 
+/**
+ * class NotFoundException extends de la class Exception pour gerer les erreur
+ * 
+ */
+
 class NotFoundException extends Exception 
 {
     public function __construct($message = "",$code = 0, ?Throwable $previous = null)

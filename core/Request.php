@@ -1,18 +1,21 @@
 <?php
 namespace Core;
 use App\Controllers;
-use App\HttpRequest\HttpRequest;
+
+
+/**
+ * La class Request gere la logique de notre routeur 
+ */
 
 class Request
 {
     private $path;
     private $action;
     private $params=[];
-    private $request;
+    
 
     public function __construct(string $path,string $action)
     {
-        //$this->request = new HttpRequest();
         $this->path = trim($path,'/');
         $this->action = $action;
     }
@@ -33,7 +36,7 @@ class Request
     public function execute()
     {
 
-        if($_SERVER['REQUEST_METHOD'] === "GET"){
+        if((new SuperGlobals)->server() === "GET"){
 
            $this->getRequest();
 
