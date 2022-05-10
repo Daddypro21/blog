@@ -12,7 +12,7 @@ class Route
 {
     private static $request;
 
-    public static function get(string $path , string $action)
+    public static function get(string $path,string $action)
     {
         $routes = new Request($path,$action);
         self::$request['GET'][] = $routes;
